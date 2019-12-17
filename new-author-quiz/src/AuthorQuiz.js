@@ -5,11 +5,11 @@ import Turn from './Turn';
 import Continue from './Continue'
 import Footer from './Footer';
 
-function AuthorQuiz() {
+function AuthorQuiz({turnData}) {
   return (
     <div className="container-fluid">
     <Hero />
-    <Turn />
+    <Turn {...turnData} />
     <Continue />
     <Footer />
     </div>
