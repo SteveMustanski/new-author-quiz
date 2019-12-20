@@ -1,7 +1,8 @@
 import React from 'react';
 import Book from './Book';
+import PropTypes from 'prop-types';
 
-const Turn = ({author, books, highlight}) => {
+const Turn = ({ author, books, highlight, onAnswerSelected }) => {
 
   function highlightToBgColor(highlight) {
     const mapping = {
@@ -12,15 +13,27 @@ const Turn = ({author, books, highlight}) => {
     return mapping[highlight];
   }
   return (
-    <div className="row turn" style={{backgroundColor: highlightToBgColor(highlight)}}>
+    <div className="row turn" style={{ backgroundColor: highlightToBgColor(highlight) }}>
       <div className="col-4 offset-1">
         <img src={author.imageUrl} className="authorimage" alt="Author" />
       </div>
       <div className="col-6">
-        {books.map((title) => <Book title={title} key={title} />)}
+        {books.map((title) => <Book title={title} key={title} onClick={onAnswerSelected} />)}
       </div>
     </div>
   );
 };
+
+Turn.propTypes = {
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    imageSource: PropTypes.string.isRequired,
+    books: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  books: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onAnswerSelected: PropTypes.func.isRequired,
+  highlight: PropTypes.string.isRequired
+}
 
 export default Turn;
